@@ -4,6 +4,7 @@ import com.tms.exceptions.InvalidUserException;
 import com.tms.repository.UserRepo;
 import com.tms.request.AuthenticationRequest;
 import com.tms.request.AuthenticationResponse;
+import com.tms.response.AuthResponse;
 import com.tms.units.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final UserRepo userRepo;
 
-    public ResponseEntity<Object> login(AuthenticationRequest authenticationRequest) {
+    public AuthResponse login(AuthenticationRequest authenticationRequest) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -35,7 +36,8 @@ public class AuthenticationService {
             AuthenticationResponse authRes = AuthenticationResponse.builder()
                     .token(jwtToken)
                     .build();
-            return new ResponseEntity<>(authRes, HttpStatus.OK);
+
+            return new AuthResponse("User login successful", user, jwtToken);
 
         } catch (BadCredentialsException ex) {
             throw new InvalidUserException("Invalid email or password");

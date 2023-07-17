@@ -51,7 +51,7 @@ public class BatchController {
         return new ResponseEntity<>(batchService.getBatch(batchCode), HttpStatus.OK);
     }
 
-    @GetMapping("api/batch/get/{traineeEmail}")
+    @GetMapping("api/batch/get-by-mail/{traineeEmail}")
     public List<Batch> getBatchesByTraineeEmail(@PathVariable String traineeEmail) {
         return batchService.findBatchesByTraineeEmail(traineeEmail);
     }
