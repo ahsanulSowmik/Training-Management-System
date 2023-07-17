@@ -32,7 +32,4 @@ public class Batch {
     private Classroom classroom;
 
 
-
-
-
 }
