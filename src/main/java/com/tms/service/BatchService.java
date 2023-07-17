@@ -5,6 +5,8 @@ import com.tms.entity.Schedule;
 import com.tms.response.BatchResponse;
 import com.tms.response.BatchesResponse;
 
+import java.util.List;
+
 public interface BatchService {
 
     public BatchResponse createBatch(Batch batch) throws Exception;
@@ -18,6 +20,8 @@ public interface BatchService {
     public BatchResponse removeScheduleFromBatch(Long scheduleId)  throws Exception;
 
     public BatchResponse getBatch(String batchCode) throws Exception;
+
+    List<Batch> findBatchesByTraineeEmail(String traineeEmail);
 
     public BatchResponse removeTraineeFromBatch(String email, String batchCode)  throws Exception;
 }

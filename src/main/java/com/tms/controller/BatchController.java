@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class BatchController {
@@ -47,6 +49,11 @@ public class BatchController {
     @GetMapping ("/api/batch/get/{batchCode}")
     public ResponseEntity<?> getUser(@PathVariable String batchCode) throws Exception {
         return new ResponseEntity<>(batchService.getBatch(batchCode), HttpStatus.OK);
+    }
+
+    @GetMapping("api/batch/get/{traineeEmail}")
+    public List<Batch> getBatchesByTraineeEmail(@PathVariable String traineeEmail) {
+        return batchService.findBatchesByTraineeEmail(traineeEmail);
     }
 
 }

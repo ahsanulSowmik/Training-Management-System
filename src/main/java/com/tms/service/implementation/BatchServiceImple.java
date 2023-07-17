@@ -188,5 +188,10 @@ public class BatchServiceImple implements BatchService {
         }
     }
 
+    @Override
+    public List<Batch> findBatchesByTraineeEmail(String traineeEmail) {
+        return batchRepo.findByTraineesContaining(traineeEmail);
+    }
+
 
 }
