@@ -167,6 +167,14 @@ public class UserServiceImple implements UserService {
         return new UserResponse("User data updated.", userToDto(user));
     }
 
+    @Override
+    public UserResponse deleteUserData(String email) throws UsernameNotFoundException {
+        User user = userData.getUser(email);
+        if(user == null) throw new UsernameNotFoundException("User not found: " + email);
+        userRepo.deleteById(email);
+        return new UserResponse("User data deleted.", userToDto(new User()));
+    }
+
     public User dtoToUser(UserDto userDto) {
         User user = this.modelMapper.map(userDto, User.class);
         return user;

@@ -7,6 +7,7 @@ import com.tms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -39,6 +40,11 @@ public class UserController {
     @PostMapping ("/api/user/assign-role")
     public ResponseEntity<?> assignUserRole(@RequestBody AssignRoleRequest assignRoleRequest) throws Exception {
         return new ResponseEntity<>(userService.assignUserRole(assignRoleRequest.getEmail(), assignRoleRequest.getRoleName()), HttpStatus.OK);
+    }
+
+    @DeleteMapping ("/api/user/delete/{email}")
+    public ResponseEntity<?> deleteUser(@PathVariable String email) {
+        return new ResponseEntity<>(userService.deleteUserData(email), HttpStatus.OK);
     }
 
 }
