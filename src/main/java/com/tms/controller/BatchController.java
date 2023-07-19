@@ -2,6 +2,7 @@ package com.tms.controller;
 
 
 import com.tms.entity.Batch;
+import com.tms.entity.Notice;
 import com.tms.entity.Schedule;
 import com.tms.request.BatchScheduleRequest;
 import com.tms.request.BatchTraineeRequest;
@@ -54,6 +55,22 @@ public class BatchController {
     @GetMapping("api/batch/get-by-mail/{traineeEmail}")
     public List<Batch> getBatchesByTraineeEmail(@PathVariable String traineeEmail) {
         return batchService.findBatchesByTraineeEmail(traineeEmail);
+    }
+
+    @GetMapping("api/batch/get-by-trainer-mail/{trainerEmail}")
+    public List<Batch> getBatchesByTrainerEmail(@PathVariable String trainerEmail) {
+        return batchService.getBatchesByTrainerEmail(trainerEmail);
+    }
+
+
+    @PostMapping("api/batch/create-notice")
+    public ResponseEntity<?> createNotice(@RequestBody Notice notice) {
+        return new ResponseEntity<>(batchService.createNotice(notice), HttpStatus.OK);
+    }
+
+    @GetMapping("api/batch/get-all-notice")
+    public ResponseEntity<?> createNotice() {
+        return new ResponseEntity<>(batchService.getAllNotice(), HttpStatus.OK);
     }
 
 }

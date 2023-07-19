@@ -13,7 +13,10 @@ public class Notice {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer noticeId;
+	private Long noticeId;
+
+	@Column(length = 1000000000)
+	private String noticeTitle;
 
 	@Column(length = 1000000000)
 	private String noticeText;

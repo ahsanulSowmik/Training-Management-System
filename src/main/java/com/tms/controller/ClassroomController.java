@@ -36,11 +36,11 @@ public class ClassroomController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
     }
 
-    @PostMapping("/{classroomId}/create-notice")
-    public ResponseEntity<?> createNotice(@PathVariable Long classroomId, @RequestBody ClassRoomNotice classRoomNotice) {
-        ClassRoomNotice createdPost = classroomService.createNotice(classroomId, classRoomNotice);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
-    }
+//    @PostMapping("/{classroomId}/create-notice")
+//    public ResponseEntity<?> createNotice(@PathVariable Long classroomId, @RequestBody ClassRoomNotice classRoomNotice) {
+//        ClassRoomNotice createdPost = classroomService.createNotice(classroomId, classRoomNotice);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(createdPost);
+//    }
 
     @GetMapping("/post/{postId}")
     public ResponseEntity<?> getPost(@PathVariable Long postId) {

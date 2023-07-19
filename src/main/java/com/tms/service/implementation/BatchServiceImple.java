@@ -39,6 +39,9 @@ public class BatchServiceImple implements BatchService {
     @Autowired
     ClassroomRepository classroomRepo;
 
+    @Autowired
+    NoticeRepo noticeRepo;
+
 
     private final UserDetails userData = (email) -> {
         Optional<User> user = Optional.ofNullable(userRepo.findById(email).orElseThrow(() -> new ResourceNotFoundException("User", "Email", email)));
@@ -191,6 +194,21 @@ public class BatchServiceImple implements BatchService {
     @Override
     public List<Batch> findBatchesByTraineeEmail(String traineeEmail) {
         return batchRepo.findByTraineesContaining(traineeEmail);
+    }
+
+    @Override
+    public Notice createNotice(Notice notice) {
+        return noticeRepo.save(notice);
+    }
+
+    @Override
+    public List<Notice> getAllNotice() {
+        return noticeRepo.findAll();
+    }
+
+    @Override
+    public List<Batch> getBatchesByTrainerEmail(String trainerEmail) {
+        return batchRepo.findByTrainerEmail(trainerEmail);
     }
 
 

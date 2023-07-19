@@ -1,6 +1,7 @@
 package com.tms.service;
 
 import com.tms.entity.Batch;
+import com.tms.entity.Notice;
 import com.tms.entity.Schedule;
 import com.tms.response.BatchResponse;
 import com.tms.response.BatchesResponse;
@@ -22,6 +23,12 @@ public interface BatchService {
     public BatchResponse getBatch(String batchCode) throws Exception;
 
     List<Batch> findBatchesByTraineeEmail(String traineeEmail);
+
+    public Notice createNotice(Notice notice);
+
+    public List<Notice> getAllNotice();
+
+    public List<Batch> getBatchesByTrainerEmail(String trainerEmail);
 
     public BatchResponse removeTraineeFromBatch(String email, String batchCode)  throws Exception;
 }
