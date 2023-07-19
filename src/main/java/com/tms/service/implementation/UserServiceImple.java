@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -173,6 +174,11 @@ public class UserServiceImple implements UserService {
         if(user == null) throw new UsernameNotFoundException("User not found: " + email);
         userRepo.deleteById(email);
         return new UserResponse("User data deleted.", userToDto(new User()));
+    }
+
+    @Override
+    public List<String> getUserEmailsAssignedAsTrainers() {
+        return userRepo.findUserEmailsAssignedAsTrainers();
     }
 
     public User dtoToUser(UserDto userDto) {

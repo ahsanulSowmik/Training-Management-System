@@ -32,6 +32,11 @@ public class UserController {
         return new ResponseEntity<>(userService.getAllUser(), HttpStatus.OK);
     }
 
+    @GetMapping ("/api/user/get-all-trainer")
+    public ResponseEntity<?> getAllTrainer() {
+        return new ResponseEntity<>(userService.getUserEmailsAssignedAsTrainers(), HttpStatus.OK);
+    }
+
     @PostMapping ("/api/user/edit")
     public ResponseEntity<?> editUser(@RequestBody UserDto userDto) {
         return new ResponseEntity<>(userService.editUserProfile( userDto), HttpStatus.OK);

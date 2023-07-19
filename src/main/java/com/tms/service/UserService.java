@@ -7,6 +7,8 @@ import com.tms.response.RoleResponse;
 import com.tms.response.UserResponse;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.util.List;
+
 public interface UserService {
 
     public UserResponse createUser(UserDto userDto);
@@ -19,4 +21,6 @@ public interface UserService {
     public UserResponse editUserProfile(UserDto userDto);
 
     public UserResponse deleteUserData(String email)  throws UsernameNotFoundException;
+
+    public List<String> getUserEmailsAssignedAsTrainers();
 }
