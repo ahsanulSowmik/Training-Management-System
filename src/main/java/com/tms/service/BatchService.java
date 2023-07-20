@@ -7,6 +7,7 @@ import com.tms.response.BatchResponse;
 import com.tms.response.BatchesResponse;
 
 import java.util.List;
+import java.util.Set;
 
 public interface BatchService {
 
@@ -29,6 +30,8 @@ public interface BatchService {
     public List<Notice> getAllNotice();
 
     public List<Batch> getBatchesByTrainerEmail(String trainerEmail);
+
+    public Set<Schedule> getTrainerSchedules(String trainerEmail);
 
     public BatchResponse removeTraineeFromBatch(String email, String batchCode)  throws Exception;
 }

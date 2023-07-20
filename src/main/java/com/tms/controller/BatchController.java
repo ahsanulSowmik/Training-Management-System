@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class BatchController {
 
     @Autowired
@@ -69,8 +69,13 @@ public class BatchController {
     }
 
     @GetMapping("api/batch/get-all-notice")
-    public ResponseEntity<?> createNotice() {
+    public ResponseEntity<?> getNotice() {
         return new ResponseEntity<>(batchService.getAllNotice(), HttpStatus.OK);
+    }
+
+    @GetMapping("api/batch/get-trainer's-schedules/{trainerEmail}")
+    public ResponseEntity<?> getTrainerSchedules(@PathVariable String trainerEmail) {
+        return new ResponseEntity<>(batchService.getTrainerSchedules(trainerEmail), HttpStatus.OK);
     }
 
 }

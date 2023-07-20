@@ -213,5 +213,12 @@ public class BatchServiceImple implements BatchService {
         return batchRepo.findByTrainerEmail(trainerEmail);
     }
 
+    @Override
+    public Set<Schedule> getTrainerSchedules(String trainerEmail) {
+
+        Set<Schedule> trainerSchedules = scheduleRepo.findByTrainerEmail(trainerEmail);
+        return trainerSchedules;
+    }
+
 
 }
