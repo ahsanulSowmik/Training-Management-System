@@ -15,4 +15,7 @@ public interface UserRepo extends JpaRepository<User, String> {
     @Query("SELECT u.email FROM User u WHERE u.trainer IS NOT NULL")
     List<String> findUserEmailsAssignedAsTrainers();
 
+    @Query("SELECT u.email FROM User u WHERE u.trainee IS NOT NULL")
+    List<String> findUserEmailsAssignedAsTrainees();
+
 }

@@ -129,9 +129,9 @@ public class BatchServiceImple implements BatchService {
         Set<Schedule> schedules = batchDB.getSchedules();
         Set<Schedule> trainerSchedules = scheduleRepo.findByTrainerEmail(schedule.getTrainerEmail());
 
-        scheduleOverlapChecker(schedules, schedule, "This Schedule time is already exist.");
-
-        scheduleOverlapChecker(trainerSchedules, schedule, "Schedule time match with Trainer's schedule");
+//        scheduleOverlapChecker(schedules, schedule, "This Schedule time is already exist.");
+//
+//        scheduleOverlapChecker(trainerSchedules, schedule, "Schedule time match with Trainer's schedule");
         schedules.add(schedule);
 
         batchDB.setSchedules(schedules);
@@ -167,28 +167,30 @@ public class BatchServiceImple implements BatchService {
     }
 
     public boolean scheduleOverlapChecker(Set<Schedule> schedules, Schedule schedule, String errMsg) throws Exception {
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        if (schedules.stream()
-                .anyMatch(s -> !LocalTime.parse(s.getScheduleEndTime(), timeFormatter)
-                        .isBefore(LocalTime.parse(schedule.getScheduleStartTime(), timeFormatter))
-                        || !LocalTime.parse(s.getScheduleStartTime(), timeFormatter)
-                        .isBefore(LocalTime.parse(schedule.getScheduleEndTime(), timeFormatter)))) {
-
-            if (schedules.stream()
-                    .anyMatch(s -> !LocalDate.parse(s.getEndDate(), dateFormatter)
-                            .isBefore(LocalDate.parse(schedule.getStartDate(), dateFormatter))
-                            || !LocalDate.parse(s.getStartDate(), dateFormatter)
-                            .isBefore(LocalDate.parse(schedule.getEndDate(), dateFormatter    )))) {
-
-                throw new Exception(errMsg);
-            } else {
-                return true;
-            }
-        } else {
+//        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+//        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//
+//
+//
+//        if (schedules.stream()
+//                .anyMatch(s -> !LocalTime.parse(s.getScheduleEndTime(), timeFormatter)
+//                        .isBefore(LocalTime.parse(schedule.getScheduleStartTime(), timeFormatter))
+//                        || !LocalTime.parse(s.getScheduleStartTime(), timeFormatter)
+//                        .isBefore(LocalTime.parse(schedule.getScheduleEndTime(), timeFormatter)))) {
+//
+//            if (schedules.stream()
+//                    .anyMatch(s -> !LocalDate.parse(s.getEndDate(), dateFormatter)
+//                            .isBefore(LocalDate.parse(schedule.getStartDate(), dateFormatter))
+//                            || !LocalDate.parse(s.getStartDate(), dateFormatter)
+//                            .isBefore(LocalDate.parse(schedule.getEndDate(), dateFormatter    )))) {
+//
+//                throw new Exception(errMsg);
+//            } else {
+//                return true;
+//            }
+//        } else {
             return true;
-        }
+//        }
     }
 
     @Override

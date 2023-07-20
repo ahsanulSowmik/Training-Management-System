@@ -181,6 +181,11 @@ public class UserServiceImple implements UserService {
         return userRepo.findUserEmailsAssignedAsTrainers();
     }
 
+    @Override
+    public List<String> getUserEmailsAssignedAsTrainees() {
+        return userRepo.findUserEmailsAssignedAsTrainees();
+    }
+
     public User dtoToUser(UserDto userDto) {
         User user = this.modelMapper.map(userDto, User.class);
         return user;

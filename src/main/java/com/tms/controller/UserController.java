@@ -3,6 +3,7 @@ package com.tms.controller;
 import com.tms.entity.User;
 import com.tms.model.UserDto;
 import com.tms.request.AssignRoleRequest;
+import com.tms.request.BatchScheduleRequest;
 import com.tms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,11 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserEmailsAssignedAsTrainers(), HttpStatus.OK);
     }
 
+    @GetMapping ("/api/user/get-all-trainee")
+    public ResponseEntity<?> getAllTrainee() {
+        return new ResponseEntity<>(userService.getUserEmailsAssignedAsTrainees(), HttpStatus.OK);
+    }
+
     @PostMapping ("/api/user/edit")
     public ResponseEntity<?> editUser(@RequestBody UserDto userDto) {
         return new ResponseEntity<>(userService.editUserProfile( userDto), HttpStatus.OK);
@@ -51,5 +57,7 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable String email) {
         return new ResponseEntity<>(userService.deleteUserData(email), HttpStatus.OK);
     }
+
+
 
 }

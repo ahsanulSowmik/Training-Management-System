@@ -23,4 +23,5 @@ public interface UserService {
     public UserResponse deleteUserData(String email)  throws UsernameNotFoundException;
 
     public List<String> getUserEmailsAssignedAsTrainers();
+    public List<String> getUserEmailsAssignedAsTrainees();
 }
