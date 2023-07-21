@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +44,9 @@ public class UserServiceImple implements UserService {
     private TrainerRepo trainerRepo;
 
     private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AssignmentAnswerRepo assignmentAnswerRepo;
 
 
     private final UserDetails userData = (email) -> {
@@ -184,6 +186,11 @@ public class UserServiceImple implements UserService {
     @Override
     public List<String> getUserEmailsAssignedAsTrainees() {
         return userRepo.findUserEmailsAssignedAsTrainees();
+    }
+
+    @Override
+    public List<Assignment> getAllAnswerByTraineeEmail(String email) {
+        return assignmentAnswerRepo.findAssignmentsByTraineeEmail(email);
     }
 
     public User dtoToUser(UserDto userDto) {

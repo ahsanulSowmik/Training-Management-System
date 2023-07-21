@@ -17,7 +17,7 @@ import lombok.Setter;
 public class AssignmentAnswer {
     public static final String TABLE_NAME= "ASSIGNMENT_ANSWER";
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long answerId;
     private String answer;
     private String answerFile;

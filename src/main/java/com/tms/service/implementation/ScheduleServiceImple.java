@@ -29,6 +29,8 @@ public class ScheduleServiceImple implements ScheduleService {
 
     @Autowired
     private AssignmentRepo assignmentRepo;
+    @Autowired
+    private AssignmentAnswerRepo assignmentAnswerRepo;
 
 
     @Autowired
@@ -61,9 +63,8 @@ public class ScheduleServiceImple implements ScheduleService {
     public BatchResponse addAnswer(AssignmentAnswer answer, Long assignmentId, String batchCode) throws Exception {
         Optional<Assignment> assignment = assignmentRepo.findById(assignmentId);
         if(assignment.isEmpty()) throw new Exception("Assignment not found");
-        Set<AssignmentAnswer> assignmentAnswers = assignment.get().getAnswers();
-        assignmentAnswers.add(answer);
-        assignment.get().setAnswers(assignmentAnswers);
+         AssignmentAnswer fromDb = assignmentAnswerRepo.save(answer);
+        assignment.get().getAnswers().add(fromDb);
         assignmentRepo.save(assignment.get());
         Optional<Batch> batchDB = batchRepo.findById(batchCode);
         return new BatchResponse("Assignment added", batchDB.get());
@@ -81,5 +82,16 @@ public class ScheduleServiceImple implements ScheduleService {
         batchDB = batchRepo.findById(schedule.get().getBatchCode());
         assignmentRepo.deleteById(assignmentId);
         return new BatchResponse("Assignment deleted", batchDB.get());
+    }
+
+    @Override
+    public Set<AssignmentAnswer> getAnswersByAssignmentId(Long assignmentId) {
+        Assignment assignment = assignmentRepo.findById(assignmentId).orElse(null);
+        if (assignment != null) {
+            return assignment.getAnswers();
+        } else {
+            // Handle the case where the assignment with the given ID is not found.
+            return null;
+        }
     }
 }

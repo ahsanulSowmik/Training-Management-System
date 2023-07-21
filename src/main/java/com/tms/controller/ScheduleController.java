@@ -5,13 +5,11 @@ import com.tms.request.AssignmentAnswerRequest;
 import com.tms.request.AssignmentRemoveRequest;
 import com.tms.request.AssignmentScheduleRequest;
 import com.tms.service.ScheduleService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -27,6 +25,11 @@ public class ScheduleController {
     @PostMapping ("/api/schedule/add-assignment-answer")
     public ResponseEntity<?> addAnswer(@RequestBody AssignmentAnswerRequest req) throws Exception {
         return new ResponseEntity<>(scheduleService.addAnswer(req.getAnswer(), req.getAssignmentId(), req.getBatchCode()), HttpStatus.OK);
+    }
+
+    @GetMapping("/api/schedule/assignment/{assignmentId}/all-answer")
+    public ResponseEntity<?> addAnswer(@PathVariable Long assignmentId) throws Exception {
+        return new ResponseEntity<>(scheduleService.getAnswersByAssignmentId(assignmentId), HttpStatus.OK);
     }
 //    @PostMapping ("/api/schedule/add-assignment-answer-evaluate")
 //    @PreAuthorize("hasRole('TRAINER')")

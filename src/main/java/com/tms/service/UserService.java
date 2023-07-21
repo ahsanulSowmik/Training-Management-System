@@ -1,6 +1,6 @@
 package com.tms.service;
 
-import com.tms.entity.User;
+import com.tms.entity.Assignment;
 import com.tms.model.UserDto;
 import com.tms.response.AllUserResponse;
 import com.tms.response.RoleResponse;
@@ -24,4 +24,6 @@ public interface UserService {
 
     public List<String> getUserEmailsAssignedAsTrainers();
     public List<String> getUserEmailsAssignedAsTrainees();
+
+    public List<Assignment> getAllAnswerByTraineeEmail(String email);
 }

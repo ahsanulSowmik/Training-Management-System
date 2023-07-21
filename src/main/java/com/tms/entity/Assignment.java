@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,14 +24,6 @@ public class Assignment {
     private String question;
     private String assignmentFile;
     private String time;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "ASSIGNMENT_ANSWER_MAP",
-            joinColumns = {
-                    @JoinColumn(name = "assignmentId")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "answerId")
-            }
-    )
-    private Set<AssignmentAnswer> answers;
+    @OneToMany( fetch = FetchType.EAGER)
+    private Set<AssignmentAnswer> answers = new HashSet<>();
 }

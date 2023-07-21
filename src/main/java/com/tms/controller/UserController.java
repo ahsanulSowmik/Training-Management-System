@@ -58,6 +58,11 @@ public class UserController {
         return new ResponseEntity<>(userService.deleteUserData(email), HttpStatus.OK);
     }
 
+    @GetMapping ("/api/user/submission/{email}")
+    public ResponseEntity<?> getAllAnswerByTraineeEmail(@PathVariable String email) {
+        return new ResponseEntity<>(userService.getAllAnswerByTraineeEmail(email), HttpStatus.OK);
+    }
+
 
 
 }
