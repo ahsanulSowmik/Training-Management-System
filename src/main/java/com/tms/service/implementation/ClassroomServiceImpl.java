@@ -13,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class ClassroomServiceImpl implements ClassroomService {
@@ -98,7 +101,19 @@ public class ClassroomServiceImpl implements ClassroomService {
         Post post = postRepository.findById(postId).get();
 
         return post;
-
-
     }
+
+    public void deletePostWithComments(Long postId) {
+        Post post = postRepository.findById(postId).orElse(null);
+        if (post != null) {
+            // Delete associated comments first
+            List<Comment> comments = post.getComments();
+            for (Comment comment : comments) {
+                commentRepo.delete(comment);
+            }
+            // Delete the post
+            postRepository.delete(post);
+        }
+    }
+
 }

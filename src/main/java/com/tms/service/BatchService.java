@@ -27,6 +27,9 @@ public interface BatchService {
 
     public Notice createNotice(Notice notice);
 
+
+    public void removeNoticeById(Long noticeId);
+
     public List<Notice> getAllNotice();
 
     public List<Batch> getBatchesByTrainerEmail(String trainerEmail);

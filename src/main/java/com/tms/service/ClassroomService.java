@@ -15,4 +15,6 @@ public interface ClassroomService {
     public ClassRoomNotice createNotice(Long classroomId, ClassRoomNotice classRoomNotice);
 
     public Post getPost(Long postId);
+
+    public void deletePostWithComments(Long postId);
 }

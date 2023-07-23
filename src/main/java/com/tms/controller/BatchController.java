@@ -68,6 +68,11 @@ public class BatchController {
         return new ResponseEntity<>(batchService.createNotice(notice), HttpStatus.OK);
     }
 
+    @DeleteMapping("api/batch/remove-notice/{noticeId}")
+    public void removeNotice(@PathVariable Long noticeId) throws Exception {
+        batchService.removeNoticeById(noticeId);
+    }
+
     @GetMapping("api/batch/get-all-notice")
     public ResponseEntity<?> getNotice() {
         return new ResponseEntity<>(batchService.getAllNotice(), HttpStatus.OK);

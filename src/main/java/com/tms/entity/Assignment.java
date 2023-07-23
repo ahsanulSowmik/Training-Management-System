@@ -23,7 +23,7 @@ public class Assignment {
     private Long assignmentId;
     private String question;
     private String assignmentFile;
-    private String time;
+    private String endTime;
     @OneToMany( fetch = FetchType.EAGER)
     private Set<AssignmentAnswer> answers = new HashSet<>();
 }

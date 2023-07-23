@@ -22,7 +22,7 @@ public class FileUploadUtil {
         String fileCode = RandomStringUtils.randomAlphanumeric(8);
 
         try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(fileCode + "-" + fileName);
+            Path filePath = uploadPath.resolve(fileName);
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new IOException("Could not save file: " + fileName, e);
