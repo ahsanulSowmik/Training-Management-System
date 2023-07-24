@@ -4,6 +4,7 @@ import com.tms.entity.*;
 import com.tms.exceptions.ResourceNotFoundException;
 import com.tms.functional.UserDetails;
 import com.tms.repository.*;
+import com.tms.request.BatchCreateRequest;
 import com.tms.response.BatchResponse;
 import com.tms.response.BatchesResponse;
 import com.tms.service.BatchService;
@@ -51,22 +52,37 @@ public class BatchServiceImple implements BatchService {
 
 
     @Override
-    public BatchResponse createBatch(Batch batch) throws Exception {
+    public BatchResponse createBatch(BatchCreateRequest batchCreateRequest) throws Exception {
+        String batchCode = batchCreateRequest.getBatchCode();
 
-        Optional<Batch> courseDB = batchRepo.findById(batch.getBatchCode());
-        if (courseDB.isPresent()) throw new Exception("Batch already exist: " + batch.getBatchCode());
+        batchRepo.findById(batchCode).ifPresent(existingBatch -> {
+            throw new RuntimeException("Batch already exists: " + batchCode);
+        });
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        if (LocalDate.parse(batch.getStartDate(), formatter).isAfter(LocalDate.parse(batch.getEndDate(), formatter))) {
-            throw new Exception("Start date can never be greater than End date");
-        }
-        Classroom classroom = new Classroom();
-        classroom.setName(batch.getName());
-        classroom.setBatchCode(batch.getBatchCode());
-        batch.setClassroom(classroomRepo.save(classroom));
-        batchRepo.save(batch);
+        LocalDate startDate = LocalDate.parse(batchCreateRequest.getStartDate(), formatter);
+        LocalDate endDate = LocalDate.parse(batchCreateRequest.getEndDate(), formatter);
 
-        return new BatchResponse("Batch Created Successfully.", batch);
+        if (startDate.isAfter(endDate)) {
+            throw new RuntimeException("Start date cannot be greater than End date");
+        }
+
+        Classroom classroom = new Classroom();
+        classroom.setName(batchCreateRequest.getName());
+        classroom.setBatchCode(batchCode);
+        Classroom savedClassroom = classroomRepo.save(classroom);
+
+        Batch batch = new Batch();
+        batch.setBatchCode(batchCode);
+        batch.setName(batchCreateRequest.getName());
+        batch.setDescription(batchCreateRequest.getDescription());
+        batch.setStartDate(batchCreateRequest.getStartDate());
+        batch.setEndDate(batchCreateRequest.getEndDate());
+        batch.setTrainees(batchCreateRequest.getTrainees());
+        batch.setClassroom(savedClassroom);
+        Batch savedBatch = batchRepo.save(batch);
+
+        return new BatchResponse("Batch Created Successfully.", savedBatch);
     }
 
     @Override

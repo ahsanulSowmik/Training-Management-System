@@ -4,6 +4,7 @@ package com.tms.controller;
 import com.tms.entity.Batch;
 import com.tms.entity.Notice;
 import com.tms.entity.Schedule;
+import com.tms.request.BatchCreateRequest;
 import com.tms.request.BatchScheduleRequest;
 import com.tms.request.BatchTraineeRequest;
 import com.tms.service.BatchService;
@@ -23,8 +24,8 @@ public class BatchController {
 
 
     @PostMapping ("/api/batch/create")
-    public ResponseEntity<?> createBatch(@RequestBody Batch batch) throws Exception {
-        return new ResponseEntity<>(batchService.createBatch(batch), HttpStatus.OK);
+    public ResponseEntity<?> createBatch(@RequestBody BatchCreateRequest batchCreateRequest) throws Exception {
+        return new ResponseEntity<>(batchService.createBatch(batchCreateRequest), HttpStatus.OK);
     }
 
     @GetMapping ("/api/batch/get/all")

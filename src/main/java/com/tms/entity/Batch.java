@@ -20,6 +20,8 @@ public class Batch {
 	@Id
     private String batchCode;
     private String name;
+
+    @Column(name="description")
     private String description;
     private String startDate;
     private String endDate;

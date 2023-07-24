@@ -20,7 +20,7 @@ public class Classroom {
 
     private String batchCode;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)

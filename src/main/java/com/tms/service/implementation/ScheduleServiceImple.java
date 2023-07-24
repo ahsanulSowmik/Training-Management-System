@@ -3,6 +3,7 @@ package com.tms.service.implementation;
 import com.tms.entity.*;
 import com.tms.functional.UserDetails;
 import com.tms.repository.*;
+import com.tms.response.ApiResponse;
 import com.tms.response.BatchResponse;
 import com.tms.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -82,6 +83,16 @@ public class ScheduleServiceImple implements ScheduleService {
         batchDB = batchRepo.findById(schedule.get().getBatchCode());
         assignmentRepo.deleteById(assignmentId);
         return new BatchResponse("Assignment deleted", batchDB.get());
+    }
+
+    @Override
+    public String answerEvaluate(Long answerId, String evaluation) throws Exception {
+        Optional<AssignmentAnswer> assignmentAnswer = assignmentAnswerRepo.findById(answerId);
+        if(assignmentAnswer.isEmpty()) throw new Exception("Answer not found");
+        assignmentAnswer.get().setEvaluation(evaluation);
+        assignmentAnswerRepo.save(assignmentAnswer.get());
+
+        return "Evaluation successful";
     }
 
     @Override

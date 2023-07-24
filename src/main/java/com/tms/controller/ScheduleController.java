@@ -1,6 +1,7 @@
 package com.tms.controller;
 
 
+import com.tms.request.AddMarkRequest;
 import com.tms.request.AssignmentAnswerRequest;
 import com.tms.request.AssignmentRemoveRequest;
 import com.tms.request.AssignmentScheduleRequest;
@@ -9,6 +10,7 @@ import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,11 +33,10 @@ public class ScheduleController {
     public ResponseEntity<?> addAnswer(@PathVariable Long assignmentId) throws Exception {
         return new ResponseEntity<>(scheduleService.getAnswersByAssignmentId(assignmentId), HttpStatus.OK);
     }
-//    @PostMapping ("/api/schedule/add-assignment-answer-evaluate")
-//    @PreAuthorize("hasRole('TRAINER')")
-//    public ResponseEntity<?> answerEvaluate(@RequestHeader (name="Authorization") String token, @RequestBody EvaluateAnswerRequest req) throws Exception {
-//        return new ResponseEntity<>(scheduleService.answerEvaluate(token, req.getAnswerId(), req.getEvaluation(), req.getBatchCode()), HttpStatus.OK);
-//    }
+    @PostMapping ("/api/schedule/add-assignment-answer-evaluate")
+    public ResponseEntity<?> answerEvaluate(@RequestBody AddMarkRequest req) throws Exception {
+        return new ResponseEntity<>(scheduleService.answerEvaluate(req.getAnswerId(), req.getEvaluation()), HttpStatus.OK);
+    }
     @PostMapping ("/api/schedule/remove-assignment")
     public ResponseEntity<?> removeAssignment(@RequestBody AssignmentRemoveRequest req) throws Exception {
         return new ResponseEntity<>(scheduleService.removeAssignment(req.getScheduleId(), req.getAssignmentId()), HttpStatus.OK);

@@ -26,8 +26,6 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-//                .requestMatchers("/**")
-//                .permitAll()
                 .requestMatchers("/api/downloadFile/{fileCode}")
                 .permitAll()
                 .requestMatchers("/auth/login")

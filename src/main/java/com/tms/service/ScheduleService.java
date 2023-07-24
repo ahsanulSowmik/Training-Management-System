@@ -15,6 +15,8 @@ public interface ScheduleService {
 
     public BatchResponse removeAssignment(Long scheduleId, Long assignmentId) throws Exception;
 
+    public String answerEvaluate(Long answerId, String evaluation)  throws Exception;
+
     Set<AssignmentAnswer> getAnswersByAssignmentId(Long assignmentId);
 
 }

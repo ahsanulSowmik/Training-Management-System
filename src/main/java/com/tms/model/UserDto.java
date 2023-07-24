@@ -2,17 +2,16 @@ package com.tms.model;
 
 import com.tms.entity.Role;
 import com.tms.entity.Trainer;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
+@Builder
 public class UserDto {
     private String email;
     private String password;

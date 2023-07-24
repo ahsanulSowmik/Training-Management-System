@@ -3,6 +3,7 @@ package com.tms.service;
 import com.tms.entity.Batch;
 import com.tms.entity.Notice;
 import com.tms.entity.Schedule;
+import com.tms.request.BatchCreateRequest;
 import com.tms.response.BatchResponse;
 import com.tms.response.BatchesResponse;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 
 public interface BatchService {
 
-    public BatchResponse createBatch(Batch batch) throws Exception;
+    public BatchResponse createBatch(BatchCreateRequest batchCreateRequest) throws Exception;
 
     public BatchResponse addTraineeToBatch(String email, String batchCode)  throws Exception;
 

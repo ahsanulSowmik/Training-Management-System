@@ -45,10 +45,17 @@ public class ClassroomServiceImpl implements ClassroomService {
 
     @Override
     public Post createPost(Long classroomId, Post post) {
-        Classroom classroom = classroomRepository.findById(classroomId).orElse(null);
-        if (classroom == null) {
-            throw new IllegalArgumentException("Classroom not found with ID: " + classroomId);
+        Classroom classroom = classroomRepository.findById(classroomId)
+                .orElseThrow(() -> new IllegalArgumentException("Classroom not found with ID: " + classroomId));
+
+        String content = post.getContent();
+        int maxContentLength = 500; // Adjust the value to the desired maximum content length
+
+        if (content != null && content.length() > maxContentLength) {
+            throw new IllegalArgumentException("Content length exceeds the maximum allowed (500 characters).");
         }
+
+        post.setClassroomId(classroomId);
 
         Post newPost = postRepository.save(post);
 
@@ -57,6 +64,8 @@ public class ClassroomServiceImpl implements ClassroomService {
 
         return newPost;
     }
+
+
 
     @Override
     public Comment createComment(Long classroomId, Long postId, Comment comment) {

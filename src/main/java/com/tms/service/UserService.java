@@ -26,4 +26,6 @@ public interface UserService {
     public List<String> getUserEmailsAssignedAsTrainees();
 
     public List<Assignment> getAllAnswerByTraineeEmail(String email);
+
+
 }
