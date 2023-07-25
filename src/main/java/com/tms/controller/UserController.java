@@ -5,6 +5,7 @@ import com.tms.model.UserDto;
 import com.tms.request.AssignRoleRequest;
 import com.tms.request.BatchScheduleRequest;
 import com.tms.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,8 @@ public class UserController {
     UserService userService;
 
     @PostMapping({"/api/user/create-user"})
-    public ResponseEntity<?> createAccount( @RequestBody UserDto userDto) throws Exception {
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> createAccount(@Valid @RequestBody UserDto userDto) throws Exception {
         return new ResponseEntity<>(userService.createUser(userDto), HttpStatus.OK);
     }
 
@@ -44,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping ("/api/user/edit")
-    public ResponseEntity<?> editUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<?> editUser(@Valid @RequestBody UserDto userDto) {
         return new ResponseEntity<>(userService.editUserProfile( userDto), HttpStatus.OK);
     }
 

@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/login")
                 .permitAll()
                 .requestMatchers("/api/user/create-user").hasAuthority("ADMIN")
-                .requestMatchers("/api/batch/create","/api/batch/add-schedule","/api/batch/remove-schedule","/api/batch/add-trainee","api/batch/create-notice","/api/course/Create","/api/course/update","/api/user/create-user","/api/user/assign-role","/api/user/delete/{email}","api/batch/remove-notice/*").hasAuthority("ADMIN")
+//                .requestMatchers("/api/batch/create","/api/batch/add-schedule","/api/batch/remove-schedule","/api/batch/add-trainee","api/batch/create-notice","/api/course/Create","/api/course/update","/api/user/create-user","/api/user/assign-role","/api/user/delete/{email}","api/batch/remove-notice/*").hasAuthority("ADMIN")
                 .requestMatchers("/api/user/get-all-user").hasAnyAuthority("TRAINEE","ADMIN","TRAINER")
                 .anyRequest()
                 .authenticated()

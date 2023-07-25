@@ -14,6 +14,7 @@ import java.util.List;
 @Repository
 public interface AssignmentAnswerRepo extends JpaRepository<AssignmentAnswer, Long> {
 
-    @Query("SELECT a FROM Assignment a JOIN a.answers ans WHERE ans.traineeEmail = :traineeEmail")
-    List<Assignment> findAssignmentsByTraineeEmail(@Param("traineeEmail") String traineeEmail);
+//    @Query("SELECT a FROM Assignment a JOIN a.answers ans WHERE ans.traineeEmail = :traineeEmail")
+//    List<Assignment> findAssignmentsByTraineeEmail(@Param("traineeEmail") String traineeEmail);
+List<AssignmentAnswer> findByTraineeEmail(String traineeEmail);
 }

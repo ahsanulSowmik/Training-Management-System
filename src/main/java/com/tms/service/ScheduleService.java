@@ -17,6 +17,6 @@ public interface ScheduleService {
 
     public String answerEvaluate(Long answerId, String evaluation)  throws Exception;
 
-    Set<AssignmentAnswer> getAnswersByAssignmentId(Long assignmentId);
+    Set<AssignmentAnswer> getAnswersByAssignmentId(Long assignmentId) throws Exception;
 
 }

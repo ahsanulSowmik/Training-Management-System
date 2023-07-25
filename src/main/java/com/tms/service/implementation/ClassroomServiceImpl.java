@@ -20,35 +20,31 @@ import java.util.stream.Collectors;
 public class ClassroomServiceImpl implements ClassroomService {
 
     @Autowired
-    private final ClassroomRepository classroomRepository;
+    private final ClassroomRepository classroomRepo;
 
     @Autowired
-    private final PostRepository postRepository;
+    private final PostRepository postRepo;
 
     @Autowired
     private final CommentRepo commentRepo;
 
     @Autowired
-    private final ClassRoomNoticeRepository classRoomNoticeRepository;
+    private final ClassRoomNoticeRepository classRoomNoticeRepo;
 
-//    public ClassroomServiceImpl(ClassroomRepository classroomRepository, PostRepository postRepository) {
-//        this.classroomRepository = classroomRepository;
-//        this.postRepository = postRepository;
-//    }
 
     @Override
     public Classroom createClassroom(Classroom classroom) {
         System.out.println(classroom);
-        return classroomRepository.save(classroom);
+        return classroomRepo.save(classroom);
     }
 
     @Override
     public Post createPost(Long classroomId, Post post) {
-        Classroom classroom = classroomRepository.findById(classroomId)
+        Classroom classroom = classroomRepo.findById(classroomId)
                 .orElseThrow(() -> new IllegalArgumentException("Classroom not found with ID: " + classroomId));
 
         String content = post.getContent();
-        int maxContentLength = 500; // Adjust the value to the desired maximum content length
+        int maxContentLength = 500;
 
         if (content != null && content.length() > maxContentLength) {
             throw new IllegalArgumentException("Content length exceeds the maximum allowed (500 characters).");
@@ -56,10 +52,10 @@ public class ClassroomServiceImpl implements ClassroomService {
 
         post.setClassroomId(classroomId);
 
-        Post newPost = postRepository.save(post);
+        Post newPost = postRepo.save(post);
 
         classroom.getPosts().add(newPost);
-        classroomRepository.save(classroom);
+        classroomRepo.save(classroom);
 
         return newPost;
     }
@@ -69,19 +65,19 @@ public class ClassroomServiceImpl implements ClassroomService {
     @Override
     public Comment createComment(Long classroomId, Long postId, Comment comment) {
 
-        Classroom classroom = classroomRepository.findById(classroomId).orElse(null);
+        Classroom classroom = classroomRepo.findById(classroomId).orElse(null);
         if (classroom == null) {
             throw new IllegalArgumentException("Classroom not found with ID: " + classroomId);
         }
 
-        Post post = postRepository.findById(postId).orElse(null);
+        Post post = postRepo.findById(postId).orElse(null);
         if (post == null) {
             throw new IllegalArgumentException("Post not found with ID: " + classroomId);
         }
         Comment co = commentRepo.save(comment);
 
         post.getComments().add(co);
-        postRepository.save(post);
+        postRepo.save(post);
         return  co;
 
 
@@ -90,15 +86,15 @@ public class ClassroomServiceImpl implements ClassroomService {
 
     @Override
     public ClassRoomNotice createNotice(Long classroomId, ClassRoomNotice classRoomNotice) {
-        Classroom classroom = classroomRepository.findById(classroomId).orElse(null);
+        Classroom classroom = classroomRepo.findById(classroomId).orElse(null);
         if (classroom == null) {
             throw new IllegalArgumentException("Classroom not found with ID: " + classroomId);
         }
 
-        ClassRoomNotice newClassRoomNotice = classRoomNoticeRepository.save(classRoomNotice);
+        ClassRoomNotice newClassRoomNotice = classRoomNoticeRepo.save(classRoomNotice);
 
         classroom.getClassRoomNotice().add(newClassRoomNotice);
-        classroomRepository.save(classroom);
+        classroomRepo.save(classroom);
 
         return newClassRoomNotice;
     }
@@ -106,22 +102,22 @@ public class ClassroomServiceImpl implements ClassroomService {
     @Override
     public Post getPost(Long postId) {
 
-        Post post = postRepository.findById(postId).get();
+        Post post = postRepo.findById(postId).get();
 
         return post;
     }
 
     public void deletePostWithComments(Long postId) {
-        Post post = postRepository.findById(postId).orElse(null);
+        Post post = postRepo.findById(postId).orElse(null);
         if (post != null) {
 
             post.getComments().clear();
-            Classroom classroom = classroomRepository.findById(post.getClassroomId()).orElse(null);
+            Classroom classroom = classroomRepo.findById(post.getClassroomId()).orElse(null);
             if (classroom != null) {
                 classroom.getPosts().remove(post);
-                classroomRepository.save(classroom);
+                classroomRepo.save(classroom);
             }
-            postRepository.delete(post);
+            postRepo.delete(post);
         }
     }
 

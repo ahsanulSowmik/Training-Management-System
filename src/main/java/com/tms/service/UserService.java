@@ -1,6 +1,7 @@
 package com.tms.service;
 
 import com.tms.entity.Assignment;
+import com.tms.entity.AssignmentAnswer;
 import com.tms.exceptions.UserAlreadyExistException;
 import com.tms.model.UserDto;
 import com.tms.response.AllUserResponse;
@@ -26,7 +27,7 @@ public interface UserService {
     public List<String> getUserEmailsAssignedAsTrainers();
     public List<String> getUserEmailsAssignedAsTrainees();
 
-    public List<Assignment> getAllAnswerByTraineeEmail(String email);
+    public List<AssignmentAnswer> getAllAnswerByTraineeEmail (String email);
 
 
 }
