@@ -1,9 +1,6 @@
 package com.tms.service.implementation;
 
-import com.tms.entity.ClassRoomNotice;
-import com.tms.entity.Classroom;
-import com.tms.entity.Comment;
-import com.tms.entity.Post;
+import com.tms.entity.*;
 import com.tms.repository.ClassRoomNoticeRepository;
 import com.tms.repository.ClassroomRepository;
 import com.tms.repository.CommentRepo;
@@ -14,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -115,14 +114,16 @@ public class ClassroomServiceImpl implements ClassroomService {
     public void deletePostWithComments(Long postId) {
         Post post = postRepository.findById(postId).orElse(null);
         if (post != null) {
-            // Delete associated comments first
-            List<Comment> comments = post.getComments();
-            for (Comment comment : comments) {
-                commentRepo.delete(comment);
+
+            post.getComments().clear();
+            Classroom classroom = classroomRepository.findById(post.getClassroomId()).orElse(null);
+            if (classroom != null) {
+                classroom.getPosts().remove(post);
+                classroomRepository.save(classroom);
             }
-            // Delete the post
             postRepository.delete(post);
         }
     }
+
 
 }

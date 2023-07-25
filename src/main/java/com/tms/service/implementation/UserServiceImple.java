@@ -3,6 +3,7 @@ package com.tms.service.implementation;
 import com.tms.entity.*;
 import com.tms.exceptions.ResourceNotFoundException;
 import com.tms.exceptions.RoleExistsException;
+import com.tms.exceptions.UserAlreadyExistException;
 import com.tms.functional.UserDetails;
 import com.tms.model.UserDto;
 import com.tms.repository.*;
@@ -56,8 +57,9 @@ public class UserServiceImple implements UserService {
     };
 
     @Override
-    public UserResponse createUser(UserDto userDto) {
+    public UserResponse createUser(UserDto userDto) throws UserAlreadyExistException {
 
+        if(userData.getUser(userDto.getEmail()) != null) throw new UserAlreadyExistException("User already exist: " + userDto.getEmail());
         User user = dtoToUser(userDto);
         user.setEmail(user.getEmail());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -135,7 +137,6 @@ public class UserServiceImple implements UserService {
         if (isRoleExists) {
             throw new RoleExistsException("Please remove previous Role first.");
         }
-
 
         Optional<Trainee> trainee = traineeRepo.findById(user.getEmail());
         if (trainee.isEmpty()) {
