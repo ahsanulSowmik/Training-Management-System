@@ -179,16 +179,15 @@ const Sidebar = () => {
               />
             )}
 
-            {userRole === "TRAINER" ||
-              (userRole === "TRAINEE" && (
-                <Item
-                  title="Lis of Schedul"
-                  to="/schedules"
-                  icon={<ScheduleIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-              ))}
+            {userRole !== "ADMIN" && (
+              <Item
+                title="Lis of Schedul"
+                to="/schedules"
+                icon={<ScheduleIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            )}
 
             {userRole === "TRAINER" && (
               <Item
@@ -225,13 +224,16 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="Classroom Post"
-              to="/classroom"
-              icon={<ClassIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            {userRole !== "ADMIN" && (
+              <Item
+                title="Classroom Post"
+                to="/classroom"
+                icon={<ClassIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            )}
+
             <Box
               display="flex"
               justifyContent="center"

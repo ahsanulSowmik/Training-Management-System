@@ -13,7 +13,6 @@ import Header from "../../components/Header";
 import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
 import axios from "axios";
-import BarChart from "../../components/BarChart";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);

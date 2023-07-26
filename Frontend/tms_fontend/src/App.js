@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -24,6 +24,9 @@ import AllSubmission from "./scenes/allSubmission/AllSubmission";
 import TraineeUpdateProfile from "./scenes/updateProfileForm/TraineeUpdateProfileField";
 import TrainerUpdateProfile from "./scenes/updateProfileForm/TrainerUpdateProfile";
 import AdminUpdateProfile from "./scenes/updateProfileForm/AdminUpdateProfile";
+import ChatRoom from "./components/ChatRoom";
+import Fab from "@mui/material/Fab";
+import ChatIcon from "@mui/icons-material/Chat";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -75,6 +78,7 @@ function App() {
                   <Route path="/assignTrainee" element={<AssignBatchForm />} />
                   <Route path="/schedules" element={<ScheduleList />} />
                   <Route path="/classroom" element={<Posts />} />
+                  <Route path="/chatroom" element={<ChatRoom />} />
                   <Route
                     path="/assigned-assignment"
                     element={<AssignedAssignment />}
@@ -111,6 +115,21 @@ function App() {
                 />
               )}
             </Routes>
+            {isLoggedIn && (
+              <Fab
+                aria-label="chat"
+                sx={{
+                  position: "fixed",
+                  bottom: "20px",
+                  right: "20px",
+                  backgroundColor: "white",
+                }}
+                component={Link} // Use Link component
+                to="/chatroom" // Navigate to /chatroom route on button click
+              >
+                <ChatIcon color="black" />
+              </Fab>
+            )}
           </main>
         </div>
       </ThemeProvider>

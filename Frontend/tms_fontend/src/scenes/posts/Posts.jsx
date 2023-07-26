@@ -28,33 +28,59 @@ const Posts = () => {
   const userRole = localStorage.getItem("userRole");
   const loogedinUserName = localStorage.getItem("userName");
 
-  useEffect(() => {
-    // Fetch data from the API and set the posts state
-    const fetchData = async () => {
-      try {
-        const userToken = localStorage.getItem("userToken");
-        const response = await axios.get(
-          `http://localhost:8080/api/batch/get-by-trainer-mail/${userEmail}`,
-          {
-            headers: {
-              Authorization: `Bearer ${userToken}`,
-            },
-          }
-        );
-        console.log(response.data);
-        if (response.data && Array.isArray(response.data)) {
-          console.log(response.data[0].classroom.classroomId);
-          setClassRoomCode(response.data[0].classroom.classroomId);
-          setPosts(response.data[0].classroom.posts);
-          setToken(userToken);
+  const fetchDataForTrainer = async () => {
+    try {
+      const userToken = localStorage.getItem("userToken");
+      const response = await axios.get(
+        `http://localhost:8080/api/batch/get-by-trainer-mail/${userEmail}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
         }
-      } catch (error) {
-        console.error("Error fetching posts:", error);
+      );
+      console.log(response.data);
+      if (response.data && Array.isArray(response.data)) {
+        console.log(response.data[0].classroom.classroomId);
+        setClassRoomCode(response.data[0].classroom.classroomId);
+        setPosts(response.data[0].classroom.posts);
+        setToken(userToken);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
 
-    fetchData();
-  }, []);
+  const fetchDataForTrainee = async () => {
+    try {
+      const userToken = localStorage.getItem("userToken");
+      const response = await axios.get(
+        `http://localhost:8080/api/batch/get-by-mail/${userEmail}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+      console.log(response.data);
+      if (response.data && Array.isArray(response.data)) {
+        console.log(response.data[0].classroom.classroomId);
+        setClassRoomCode(response.data[0].classroom.classroomId);
+        setPosts(response.data[0].classroom.posts);
+        setToken(userToken);
+      }
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (userRole === "TRAINER") {
+      fetchDataForTrainer();
+    } else if (userRole === "TRAINEE") {
+      fetchDataForTrainee();
+    }
+  }, [userRole]);
 
   const handleSubmit = async () => {
     try {
@@ -103,11 +129,8 @@ const Posts = () => {
         }
       );
 
-      // Assuming the API response contains the newly created post data
       const newPost = response.data;
       setPosts((prevPosts) => [newPost, ...prevPosts]);
-
-      // Close the modal after successful submission
       handleModalClose();
     } catch (error) {
       console.error("Error creating post:", error);
@@ -130,14 +153,12 @@ const Posts = () => {
   const handleDeletePost = async (postId) => {
     try {
       const userToken = localStorage.getItem("userToken");
-      // Make the API call to delete the post
       await axios.delete(`http://localhost:8080/classrooms/${postId}`, {
         headers: {
           Authorization: `Bearer ${userToken}`,
         },
       });
 
-      // Update the state by removing the deleted post
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
     } catch (error) {
       console.error("Error deleting post:", error);
@@ -161,10 +182,8 @@ const Posts = () => {
         }
       );
 
-      // Assuming the API response contains the newly created comment data
       const newComment = response.data;
 
-      // Update the state to include the new comment
       setPosts((prevPosts) =>
         prevPosts.map((post) =>
           post.id === postId

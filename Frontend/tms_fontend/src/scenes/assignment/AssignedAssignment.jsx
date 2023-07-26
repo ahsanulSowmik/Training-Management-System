@@ -24,7 +24,7 @@ const AssignedAssignment = () => {
       var userEmail = localStorage.getItem("userEmail");
 
       const apiUrl = `http://localhost:8080/api/batch/get-trainer's-schedules/${userEmail}`;
-      const token = localStorage.getItem("userToken"); // Fetch the token from localStorage
+      const token = localStorage.getItem("userToken");
       const headers = {
         Authorization: `Bearer ${token}`,
       };
