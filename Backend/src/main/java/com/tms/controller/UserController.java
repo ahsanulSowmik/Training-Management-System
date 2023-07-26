@@ -20,7 +20,6 @@ public class UserController {
     UserService userService;
 
     @PostMapping({"/api/user/create-user"})
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createAccount(@Valid @RequestBody UserDto userDto) throws Exception {
         return new ResponseEntity<>(userService.createUser(userDto), HttpStatus.OK);
     }

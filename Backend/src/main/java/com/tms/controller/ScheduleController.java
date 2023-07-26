@@ -30,7 +30,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/api/schedule/assignment/{assignmentId}/all-answer")
-    public ResponseEntity<?> addAnswer(@PathVariable Long assignmentId) throws Exception {
+    public ResponseEntity<?> getAllAnswer(@PathVariable Long assignmentId) throws Exception {
         return new ResponseEntity<>(scheduleService.getAnswersByAssignmentId(assignmentId), HttpStatus.OK);
     }
     @PostMapping ("/api/schedule/add-assignment-answer-evaluate")
