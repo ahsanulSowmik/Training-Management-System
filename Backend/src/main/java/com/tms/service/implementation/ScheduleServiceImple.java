@@ -101,7 +101,7 @@ public class ScheduleServiceImple implements ScheduleService {
         if (assignment != null) {
             return assignment.getAnswers();
         } else {
-            // Handle the case where the assignment with the given ID is not found.
+
             return null;
         }
     }

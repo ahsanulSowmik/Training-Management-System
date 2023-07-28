@@ -157,7 +157,14 @@ const ChatRoom = () => {
                 />
               </ListItem>
               {[...privateChats.keys()].map((name, index) => (
-                <ListItem>
+                <ListItem
+                // button
+                // onClick={() => {
+                //   setTab(name);
+                // }}
+                // className={`member ${tab === name && "active"}`}
+                // key={index}
+                >
                   <ListItemText primary={name} />
                 </ListItem>
               ))}

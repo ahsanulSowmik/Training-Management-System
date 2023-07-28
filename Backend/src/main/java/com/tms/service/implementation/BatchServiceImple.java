@@ -44,6 +44,7 @@ public class BatchServiceImple implements BatchService {
     NoticeRepo noticeRepo;
 
 
+
     private final UserDetails userData = (email) -> {
         Optional<User> user = Optional.ofNullable(userRepo.findById(email).orElseThrow(() -> new ResourceNotFoundException("User", "Email", email)));
         if (user.isPresent()) return user.get();
