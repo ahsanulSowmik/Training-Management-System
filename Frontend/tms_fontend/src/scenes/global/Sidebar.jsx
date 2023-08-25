@@ -98,7 +98,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  BJIT Academy
+                  SUST TMS
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -128,7 +128,7 @@ const Sidebar = () => {
                   {localStorage.getItem("userName")}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  {localStorage.getItem("userRole")} at BJIT Academy
+                  {localStorage.getItem("userRole")} at SUST TMS
                 </Typography>
               </Box>
             </Box>
@@ -189,6 +189,25 @@ const Sidebar = () => {
               />
             )}
 
+            {userRole === "TRAINER" && (
+              <Item
+                title="Take Attendance"
+                to="/attendance"
+                icon={<AssignmentIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            )}
+
+            {userRole === "TRAINER" && (
+              <Item
+                title="Attendance List"
+                to="/attendanceList"
+                icon={<AssignmentIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            )}
             {userRole === "TRAINER" && (
               <Item
                 title="Assigments"

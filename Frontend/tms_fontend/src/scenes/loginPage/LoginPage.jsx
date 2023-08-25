@@ -60,7 +60,7 @@ const LoginPage = ({ handleLoginSuccess }) => {
             gutterBottom
           >
             <br />
-            BJIT Academy
+            SUST TMS
           </Typography>
           <TextField
             label="Username"

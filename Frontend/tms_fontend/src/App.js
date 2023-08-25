@@ -27,6 +27,10 @@ import AdminUpdateProfile from "./scenes/updateProfileForm/AdminUpdateProfile";
 import ChatRoom from "./components/ChatRoom";
 import Fab from "@mui/material/Fab";
 import ChatIcon from "@mui/icons-material/Chat";
+import Attendance from "./scenes/attendance/Attendance";
+import AttendanceList from "./scenes/attendance/AttendanceList";
+
+
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -73,6 +77,8 @@ function App() {
                     element={<CourseScheduling />}
                   />
                   <Route path="/form" element={<Form />} />
+                  <Route path="/attendance" element={<Attendance />} />
+                  <Route path="/attendanceList" element={<AttendanceList />} />
                   <Route path="/notice" element={<Notice />} />
                   <Route path="/user/:email" element={<UserProfile />} />
                   <Route path="/assignTrainee" element={<AssignBatchForm />} />

@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/course/get/all","/api/user/get-all-user","/api/user/get-all-user","/api/user/get-all-trainer","/api/user/get-all-trainee","/classrooms/{classroomId}/posts","/{classroomId}/post/{postId}/comments","/{classroomId}/post/{postId}","/api/batch/get/all","api/batch/get-all-notice").hasAnyAuthority("ADMIN","TRAINER","TRAINEE")
                 .requestMatchers("/api/user/create-user").hasAuthority("ADMIN")
                 .requestMatchers("/api/batch/create","/api/batch/add-schedule","/api/batch/remove-schedule","/api/batch/add-trainee","api/batch/create-notice","/api/course/Create","/api/course/update","/api/user/create-user","/api/user/assign-role","/api/user/delete/{email}","api/batch/remove-notice/{noticeId}").hasAuthority("ADMIN")
-                .requestMatchers("/api/schedule/add-assignment","/api/schedule/assignment/{assignmentId}/all-answer","/api/schedule/add-assignment-answer-evaluate","/api/schedule/remove-assignment","/classrooms/{postId}","api/batch/get-by-trainer-mail/{trainerEmail}","api/batch/get-trainer's-schedules/{trainerEmail}").hasAnyAuthority("TRAINER")
+                .requestMatchers("/api/schedule/add-assignment","/api/schedule/assignment/{assignmentId}/all-answer","/api/schedule/add-assignment-answer-evaluate","/api/schedule/remove-assignment","/classrooms/{postId}","api/batch/get-by-trainer-mail/{trainerEmail}","api/batch/get-trainer's-schedules/{trainerEmail}","/api/attendance/*").hasAnyAuthority("TRAINER")
                 .requestMatchers("api/batch/get-by-mail/{traineeEmail}").hasAnyAuthority("TRAINEE")
                 .anyRequest()
                 .authenticated()

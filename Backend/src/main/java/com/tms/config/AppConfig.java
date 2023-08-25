@@ -16,11 +16,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class AppConfig {
 
-    private final UserRepo userRepo;
-    @Bean
-    public UserDetailsService userDetailsService(){
-        return userRepo::findByEmail;
+    private final UserRepo userRepo; // The UserRepo dependency is injected via constructor
 
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return userRepo::findByEmail;
     }
 
 

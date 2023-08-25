@@ -53,7 +53,7 @@ const Dashboard = () => {
 
   return (
     <Box m="10px">
-      <Header title="BJIT Academy" subtitle="Empower Your Future with Us" />
+      <Header title="SUST TMS" subtitle="Empower Your Future with Us" />
       <div
         style={{
           display: "flex",
